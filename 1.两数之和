@@ -38,7 +38,8 @@ public:
     array<int, 2> a;      //定义长度为2的int数组     
 2.for循环执行顺序问题
   第一步为i赋值；第二步检查赋值是否符合第二个表达式；第三部执行循环体；第四步执行第三段操作；
-
+3.官方答案
+   https://leetcode-cn.com/problems/two-sum/solution/liang-shu-zhi-he-by-leetcode-2/
 
 
 */
