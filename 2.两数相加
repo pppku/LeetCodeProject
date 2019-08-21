@@ -1,4 +1,5 @@
-给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+/* question
+给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位数字。
 
 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
 
@@ -13,5 +14,106 @@
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/add-two-numbers
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+*/
 
+
+
+/*solution
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+     
+        ListNode* result = new ListNode(-1);
+        ListNode* p = result;
+        
+        int val1, val2;
+        int sum = 0;
+        int blag = 0;
+        
+        while(l1 || l2)
+        {
+            if(l1)
+            {
+                val1 = l1 -> val;
+                l1 = l1 -> next;
+            }
+            else
+            {
+                val1 = 0;
+            }
+            
+            if(l2)
+            {
+                val2 = l2 -> val;
+                l2 = l2 -> next;
+            }
+            else
+            {
+                val2 = 0;
+            }
+            
+            sum = val1 + val2 + blag;
+            blag = 0;
+            
+            if(sum > 9)
+            {
+                sum = sum % 10;
+                blag = 1;
+            }
+            
+            p -> next = new ListNode(0);
+            p = p -> next;
+            p -> val = sum;
+            
+            // if(sum)
+            // {
+            //     p = new ListNode(0);
+            //     p -> val = sum;
+            //     p = p -> next
+            // }
+        }
+        
+        if(blag)
+        {
+            p -> next = new ListNode(0);
+            p = p -> next;
+            p -> val = blag;
+            blag = 0;
+        }
+        
+        return result -> next;
+    }
+};
+
+*/
+
+
+/*ps
+  1.c++链表定义问题
+      int val;
+      ListNode *next;
+      ListNode(int x) : val(x), next(NULL) {}
+      初始化定义ListNode, 把int x赋值给val, 把NULL赋值给next
+      
+  2.c++链表连接问题
+      令result = p = NULL 的操作不能使result表示p这条链表
+      一般采取的方式为，创建一个head结点，即：
+      ListNode* result = new ListNode(-1);
+      ListNode* p = result;
+      
+  3.官方题解
+      https://leetcode-cn.com/problems/add-two-numbers/solution/liang-shu-xiang-jia-by-leetcode/
+
+
+
+*/
 
