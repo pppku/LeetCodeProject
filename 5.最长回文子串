@@ -1,0 +1,36 @@
+/* question
+
+*/
+
+/* solution
+    class Solution {
+    public:
+        int huiwenlength(string tem)
+        {
+            return 0;
+        }
+
+        string longestPalindrome(string s) {
+            int i, j, tem;
+            slength = s.length();
+
+            int nowlength = 1;
+            string result = s.substr(0, 1);
+            string temp;
+
+            for(i = 0; i < slength - 1; ++i)
+                for(j = i + 1; j < slength; ++j)
+                {
+                    temp = s.substr(i, j + 1);
+                    tem = huiwenlength(temp);
+                    if(tem > nowlength)
+                    {
+                        nowlength = tem;
+                        result = temp;
+                    }
+                }
+
+            return result;
+        }
+    };
+*/
