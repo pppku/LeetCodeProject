@@ -7,7 +7,18 @@
     public:
         int huiwenlength(string tem)
         {
-            return 0;
+            int i;
+            int slength = tem.length();
+            int length = 1;
+
+            for(i = 0; i < (slength + 1) / 2; ++i)
+            {
+                if(tem[i] == tem[slength - i - 1])
+                    length++;
+                else
+                    break;
+            }
+            return length;
         }
 
         string longestPalindrome(string s) {
