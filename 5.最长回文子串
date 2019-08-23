@@ -3,45 +3,52 @@
 */
 
 /* solution
-    class Solution {
-    public:
-        int huiwenlength(string tem)
+class Solution {
+public:
+    int ishuiwen(string tem)
+    {
+        int i;
+        int slength = tem.length();
+        int result = 1;
+            
+        for(i = 0; i < (slength + 1) / 2; ++i)
         {
-            int i;
-            int slength = tem.length();
-            int length = 1;
-
-            for(i = 0; i < (slength + 1) / 2; ++i)
+            if(tem[i] != tem[slength - i - 1])
             {
-                if(tem[i] == tem[slength - i - 1])
-                    length++;
-                else
-                    break;
+                result = 0;
+                break;
             }
-            return length;
         }
-
-        string longestPalindrome(string s) {
-            int i, j, tem;
-            slength = s.length();
-
-            int nowlength = 1;
-            string result = s.substr(0, 1);
-            string temp;
-
-            for(i = 0; i < slength - 1; ++i)
-                for(j = i + 1; j < slength; ++j)
+        
+        return result;
+    }
+    
+    string longestPalindrome(string s) {
+        int i, j, tem;
+        int slength = s.length();
+        
+        int nowlength = 1;
+        string result = s.substr(0, 1);
+        string temp;
+        
+        for(i = 0; i < slength - 1; ++i)
+            for(j = i; j < slength; ++j)
+            {
+                temp = s.substr(i, j + 1);
+                
+                if(ishuiwen(temp) == 1)
                 {
-                    temp = s.substr(i, j + 1);
-                    tem = huiwenlength(temp);
-                    if(tem > nowlength)
+                    if(temp.length() > nowlength)
                     {
-                        nowlength = tem;
+                        nowlength = temp.length();
                         result = temp;
                     }
                 }
+                
 
-            return result;
-        }
-    };
+            }
+        
+        return result;
+    }
+};
 */
