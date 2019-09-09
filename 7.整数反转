@@ -22,3 +22,31 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 */
+
+/*  solution
+
+
+class Solution {
+public:
+    int reverse(int x) {
+        int rev = 0;
+        while (x != 0) {
+            int pop = x % 10;
+            x /= 10;
+            if (rev > INT_MAX/10 || (rev == INT_MAX / 10 && pop > 7)) return 0;
+            if (rev < INT_MIN/10 || (rev == INT_MIN / 10 && pop < -8)) return 0;
+            rev = rev * 10 + pop;
+        }
+        return rev;
+    }
+};
+
+*/
+
+/* ps
+字符串操作
+  1.string to int： atoi(xx.c_str())
+  2.int to string： to_string(int x)
+  3.字符串反转： reverse(xx.begin(), xx.end())
+
+*/
