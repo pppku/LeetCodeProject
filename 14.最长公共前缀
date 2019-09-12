@@ -1,0 +1,90 @@
+/*  question
+
+编写一个函数来查找字符串数组中的最长公共前缀。
+
+如果不存在公共前缀，返回空字符串 ""。
+
+示例 1:
+
+输入: ["flower","flow","flight"]
+输出: "fl"
+示例 2:
+
+输入: ["dog","racecar","car"]
+输出: ""
+解释: 输入不存在公共前缀。
+说明:
+
+所有输入只包含小写字母 a-z 。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/longest-common-prefix
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+
+/* solution
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.size() == 0)
+            return "";
+        
+        int minlength = strs[0].size();
+        int i;
+        
+        for(i = 1; i < strs.size(); ++i)
+        {
+            if(strs[i].size() < minlength)
+                minlength = strs[i].size();
+        }
+        
+        
+        string str = "";
+        int k = 1;
+        int j = 0;
+        char tem;
+        
+        while(k == 1)
+        {
+            if(j == minlength)
+                break;
+            tem = strs[0][j];
+            for(i = 0; i < strs.size(); ++i)
+            {
+                
+                if(strs[i][j] != tem)
+                {
+                    k = 0;
+                    break;
+                }
+            }
+            
+            if(k == 1)
+            {
+                str += tem;
+                j++;
+            }
+            
+            else
+            {
+                break;
+            }
+            
+        }
+        
+        return str;
+    }
+};
+
+*/
+
+
+/* ps
+
+1.特殊值的验证
+2.数组长度最好用size()
+
+*/
