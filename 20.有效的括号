@@ -1,0 +1,99 @@
+/*  question
+
+给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+
+有效字符串需满足：
+
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+注意空字符串可被认为是有效字符串。
+
+示例 1:
+
+输入: "()"
+输出: true
+示例 2:
+
+输入: "()[]{}"
+输出: true
+示例 3:
+
+输入: "(]"
+输出: false
+示例 4:
+
+输入: "([)]"
+输出: false
+示例 5:
+
+输入: "{[]}"
+输出: true
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/valid-parentheses
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+/* solution
+
+class Solution {
+public:
+    bool isValid(string s) {
+
+        stack<char> sta;
+        char topc;
+        
+        for(int i = 0; i < s.size(); ++i)
+        {
+            if(!sta.empty())
+            {
+                topc = sta.top();
+                if(topc == '(' && s[i] == ')')
+                    sta.pop();
+                else if(topc == '[' && s[i] == ']')
+                    sta.pop();
+                else if(topc == '{' && s[i] == '}')
+                    sta.pop();
+                else
+                    sta.push(s[i]);
+            }
+            else
+            {
+                sta.push(s[i]);
+            }
+        }
+        
+        if(sta.empty())
+            return true;
+        else
+            return false;
+        
+    }
+};
+
+*/
+
+/*  ps
+
+C++标准库之栈（stack）
+1、栈（stack）说明及举例：
+
+使用栈，要先包含头文件 ： #include<stack>
+
+定义栈，以如下形式实现： stack<Type> s; 其中Type为数据类型（如 int，float,char等）。
+
+栈的主要操作：
+
+
+s.push(item);		//将item压入栈顶
+s.pop();			//删除栈顶的元素，但不会返回
+s.top();			//返回栈顶的元素，但不会删除
+s.size();			//返回栈中元素的个数
+s.empty();			//检查栈是否为空，如果为空返回true，否则返回false 
+
+————————————————
+版权声明：本文为CSDN博主「evil_1_live」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/livecoldsun/article/details/25011413
+
+*/
