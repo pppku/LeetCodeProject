@@ -1,0 +1,113 @@
+/* question
+
+给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
+
+请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
+
+你可以假设 nums1 和 nums2 不会同时为空。
+
+示例 1:
+
+nums1 = [1, 3]
+nums2 = [2]
+
+则中位数是 2.0
+示例 2:
+
+nums1 = [1, 2]
+nums2 = [3, 4]
+
+则中位数是 (2 + 3)/2 = 2.5
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/median-of-two-sorted-arrays
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+/* solution
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int middle;
+        int size = nums1.size() + nums2.size();
+        int i = 0, j = 0;
+        double tem, temm;
+
+        // return size;
+        middle = size / 2;
+        
+
+        for(int k = 0; k < middle; ++k)
+        {
+            if(i == nums1.size())
+            {
+                tem = nums2[j];
+                j++;;
+            }
+            else if(j == nums2.size())
+            {
+                tem = nums1[i];
+                i++;
+            }
+            else
+            {
+                if(nums1[i] < nums2[j])
+                {
+                    tem = nums1[i];
+                    i++;
+                }
+                else
+                {
+                    tem = nums2[j];
+                    j++;
+                }
+
+            }
+
+        }
+
+        if(i == nums1.size())
+        {
+            temm = nums2[j];
+        }
+        else if(j == nums2.size())
+        {
+            temm = nums1[i];
+        }
+        else
+        {
+            if(nums1[i] < nums2[j])
+            {
+                temm = nums1[i];
+            }
+                
+            else
+            {
+                temm = nums2[j];
+            }
+        }
+        
+
+        
+
+        if(size % 2 == 0)
+        {
+            return (temm + tem) / 2;
+        }
+
+        else
+        {
+            return temm;
+            
+        }
+        
+        
+            
+        }
+};
+
+*/
+
+
