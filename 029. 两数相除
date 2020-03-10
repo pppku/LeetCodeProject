@@ -114,3 +114,24 @@ public:
 };
 
 */
+
+
+/* improve
+
+    int div(double a, double b){  // 似乎精髓和难点就在于下面这几句
+    if(a<b) return 0;
+    double count = 1;
+    double tb = b; // 在后面的代码中不更新b
+    while((tb+tb)<=a){
+        count = count + count; // 最小解翻倍
+        tb = tb+tb; // 当前测试的值也翻倍
+    }
+    return count + div(a-tb,b);
+    }
+    
+    
+   // 算出当前被除数能减去除数*2^n 将数值传递给下一个递归体
+   
+   
+
+*/
