@@ -1,0 +1,65 @@
+/* question
+
+给定一个可包含重复数字的序列，返回所有不重复的全排列。
+
+示例:
+
+输入: [1,1,2]
+输出:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/permutations-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+
+*/
+
+
+/* solution
+
+class Solution {
+    vector<int> vis;
+
+public:
+    void backtrack(vector<int>& nums, vector<vector<int>>& res, int idx, vector<int>& perm) 
+    {
+        if (idx == nums.size()) 
+        {
+            res.emplace_back(perm);
+            return;
+        }
+        for (int i = 0; i < nums.size(); ++i) 
+        {
+            // i已经被访问了 或者i和上一个是重复的则跳过
+            if (vis[i] || (i > 0 && nums[i] == nums[i - 1] && !vis[i - 1])) 
+            {
+                continue;
+            }
+            perm.emplace_back(nums[i]);
+            vis[i] = 1;
+            backtrack(nums, res, idx + 1, perm);
+            vis[i] = 0;
+            perm.pop_back();
+        }
+    }
+
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> perm;
+        
+        for(int i = 0; i < nums.size(); ++i) vis.emplace_back(0);
+
+
+        sort(nums.begin(), nums.end());
+        backtrack(nums, res, 0, perm);
+        return res;
+    }
+};
+
+
+*/
