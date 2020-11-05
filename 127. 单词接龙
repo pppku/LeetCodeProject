@@ -1,0 +1,214 @@
+/* question
+
+给定两个单词（beginWord 和 endWord）和一个字典，找到从 beginWord 到 endWord 的最短转换序列的长度。转换需遵循如下规则：
+
+每次转换只能改变一个字母。
+转换过程中的中间单词必须是字典中的单词。
+说明:
+
+如果不存在这样的转换序列，返回 0。
+所有单词具有相同的长度。
+所有单词只由小写字母组成。
+字典中不存在重复的单词。
+你可以假设 beginWord 和 endWord 是非空的，且二者不相同。
+示例 1:
+
+输入:
+beginWord = "hit",
+endWord = "cog",
+wordList = ["hot","dot","dog","lot","log","cog"]
+
+输出: 5
+
+解释: 一个最短转换序列是 "hit" -> "hot" -> "dot" -> "dog" -> "cog",
+     返回它的长度 5。
+示例 2:
+
+输入:
+beginWord = "hit"
+endWord = "cog"
+wordList = ["hot","dot","dog","lot","log"]
+
+输出: 0
+
+解释: endWord "cog" 不在字典中，所以无法进行转换。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/word-ladder
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+
+/* solution1 回溯递归（超出时间限制）
+
+class Solution {
+public:
+
+    int tem;
+    int res;
+
+    // 判断两个字符串是否相等，如果b已被选上，则返回0
+    int differentbit(string a, string b)
+    {
+        if(b.size() > a.size()) return 0;
+
+        int bit = 0;
+        for(int i = 0; i < a.size(); ++i)
+        {
+            if(a[i] != b[i]) bit++;
+        }
+
+        return bit;
+    }
+
+    void backtrack(string cur, vector<string>& wordList, string endWord)
+    {
+        // 剪枝
+        if(tem > res) return;
+        
+        if(cur == endWord)
+        {
+            // 找到最小长度
+            res = res < (tem + 1) ? res : (tem + 1);
+            return;
+        }
+
+        for(int i = 0; i < wordList.size(); ++i)
+        {
+            if(differentbit(cur, wordList[i]) == 1)
+            {
+                string newcur = wordList[i];
+                wordList[i] += '0';
+                tem++;
+                backtrack(newcur, wordList, endWord);
+                tem--;
+                wordList[i].pop_back();
+            }
+        }
+
+
+    }
+
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+
+        // 处理没有结果的情况
+        int hasend = 0;
+        for(auto word : wordList)
+        {
+            if(word == endWord)
+            {
+                hasend = 1;
+                break;
+            }
+        }
+        if(hasend == 0) return 0;
+
+        // 处理一般情况
+        res = INT_MAX;
+        tem = 0;
+
+        backtrack(beginWord, wordList, endWord);
+
+        // 返回未处理的情况
+        if(res == INT_MAX) return 0;
+
+        return res;
+
+    }
+};
+
+*/
+
+
+/* solution2 双向广度优先搜索
+
+class Solution {
+public:
+    unordered_map<string, int> wordId;
+    vector<vector<int>> edge;
+    int nodeNum = 0;
+
+    void addWord(string& word) {
+        if (!wordId.count(word)) {
+            wordId[word] = nodeNum++;
+            edge.emplace_back();
+        }
+    }
+
+    void addEdge(string& word) {
+        addWord(word);
+        int id1 = wordId[word];
+        for (char& it : word) {
+            char tmp = it;
+            it = '*';
+            addWord(word);
+            int id2 = wordId[word];
+            edge[id1].push_back(id2);
+            edge[id2].push_back(id1);
+            it = tmp;
+        }
+    }
+
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        for (string& word : wordList) {
+            addEdge(word);
+        }
+        addEdge(beginWord);
+        if (!wordId.count(endWord)) {
+            return 0;
+        }
+
+        vector<int> disBegin(nodeNum, INT_MAX);
+        int beginId = wordId[beginWord];
+        disBegin[beginId] = 0;
+        queue<int> queBegin;
+        queBegin.push(beginId);
+
+        vector<int> disEnd(nodeNum, INT_MAX);
+        int endId = wordId[endWord];
+        disEnd[endId] = 0;
+        queue<int> queEnd;
+        queEnd.push(endId);
+
+        while (!queBegin.empty() && !queEnd.empty()) {
+            int queBeginSize = queBegin.size();
+            for (int i = 0; i < queBeginSize; ++i) {
+                int nodeBegin = queBegin.front();
+                queBegin.pop();
+                if (disEnd[nodeBegin] != INT_MAX) {
+                    return (disBegin[nodeBegin] + disEnd[nodeBegin]) / 2 + 1;
+                }
+                for (int& it : edge[nodeBegin]) {
+                    if (disBegin[it] == INT_MAX) {
+                        disBegin[it] = disBegin[nodeBegin] + 1;
+                        queBegin.push(it);
+                    }
+                }
+            }
+
+            int queEndSize = queEnd.size();
+            for (int i = 0; i < queEndSize; ++i) {
+                int nodeEnd = queEnd.front();
+                queEnd.pop();
+                if (disBegin[nodeEnd] != INT_MAX) {
+                    return (disBegin[nodeEnd] + disEnd[nodeEnd]) / 2 + 1;
+                }
+                for (int& it : edge[nodeEnd]) {
+                    if (disEnd[it] == INT_MAX) {
+                        disEnd[it] = disEnd[nodeEnd] + 1;
+                        queEnd.push(it);
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+};
+
+作者：LeetCode-Solution
+链接：https://leetcode-cn.com/problems/word-ladder/solution/dan-ci-jie-long-by-leetcode-solution/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+*/
