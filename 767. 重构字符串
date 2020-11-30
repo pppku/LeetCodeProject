@@ -1,0 +1,62 @@
+/* question
+
+给定一个字符串S，检查是否能重新排布其中的字母，使得两相邻的字符不同。
+
+若可行，输出任意可行的结果。若不可行，返回空字符串。
+
+示例 1:
+
+输入: S = "aab"
+输出: "aba"
+示例 2:
+
+输入: S = "aaab"
+输出: ""
+注意:
+
+S 只包含小写字母并且长度在[1, 500]区间内。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/reorganize-string
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+
+/* solution
+
+class Solution {
+    struct cmp{
+        bool operator() (pair<int, int>& p1, pair<int, int>& p2)
+        {
+            return p1.second < p2.second;
+        }
+    };
+public:
+    string reorganizeString(string S) {
+        vector<int> count(26, 0);
+        for(char c : S) count[c - 'a']++;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, cmp> heap;
+        for(int i = 0; i < 26; i++)
+        {
+            if(count[i]) heap.push({i, count[i]});
+        }
+        string ans;
+        pair<int, int> last = {0, 0};
+        while(!heap.empty())
+        {
+            auto temp = heap.top();
+            heap.pop();
+            ans += 'a' + temp.first;
+
+            if(last.second) heap.push(last);
+            last = temp;
+            last.second--;
+        }
+        if(last.second) return "";
+        return ans;
+    }
+};
+
+
+*/
