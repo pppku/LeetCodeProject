@@ -21,7 +21,7 @@
 
 */
 
-/* solution
+/* solution1
 
 class Solution {
 public:
@@ -51,5 +51,48 @@ public:
         return result;
     }
 };
+
+*/
+
+
+/* solution 2
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+        int size = nums.size();
+        int have = 0;
+
+        while(left < size)
+        {
+            if(nums[left] == target)
+            {
+                have = 1;
+                break;
+            }
+            left++;
+        }
+
+        if(have == 1)
+        {
+            while(right >= left)
+            {
+                if(nums[right] == target)
+                {
+                    break;
+                }
+                right--;
+            }
+        }
+        else return {-1, -1};
+
+        return {left, right};
+    }
+};
+
+
+
 
 */
